@@ -1,0 +1,24 @@
+{
+  "name": "utls-package",
+  "version": "1.1.0",
+  "description": "progressively upgraded package",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test/index.test.js",
+    "example": "node examples/basic.js"
+  },
+  "keywords": [
+    "string",
+    "case",
+    "camelCase",
+    "utility",
+    "utils"
+  ],
+  "author": "billy7175",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
+
