@@ -77,7 +77,7 @@ console.log('\n' + '='.repeat(50));
 console.log('🔄 Case Conversion Chain Example');
 console.log('='.repeat(50));
 
-const original = 'hello world example';
+const original: string = 'hello world example';
 console.log('\nOriginal:', `"${original}"`);
 console.log('  → camelCase:', toCamelCase(original));
 console.log('  → kebab-case:', toKebabCase(original));
@@ -87,3 +87,4 @@ console.log('  → PascalCase:', toPascalCase(original));
 console.log('\n✨ v1.1.0 Update Complete!');
 console.log('🎉 Provides 4 case conversion functions: camelCase, kebab-case, snake_case, PascalCase');
 console.log('💡 Next version will add optional parameters and advanced features.\n');
+

@@ -6,18 +6,19 @@
 import { toCamelCase, toKebabCase, toSnakeCase, toPascalCase } from '../dist/index.js';
 
 // Simple test helpers
-function test(description, fn) {
+function test(description: string, fn: () => void): void {
   try {
     fn();
     console.log(`✅ ${description}`);
   } catch (error) {
+    const err = error as Error;
     console.error(`❌ ${description}`);
-    console.error(`   ${error.message}`);
-    process.exit(1);
+    console.error(`   ${err.message}`);
+    process.exit(1);  // Exit with code 1 on test failure (for CI/CD)
   }
 }
 
-function assertEqual(actual, expected, message) {
+function assertEqual<T>(actual: T, expected: T, message?: string): void {
   if (actual !== expected) {
     throw new Error(
       message || `Expected "${expected}" but got "${actual}"`
@@ -60,8 +61,8 @@ test('Handle empty string', () => {
 });
 
 test('Handle null/undefined', () => {
-  assertEqual(toCamelCase(null), '');
-  assertEqual(toCamelCase(undefined), '');
+  assertEqual(toCamelCase(null as any), '');
+  assertEqual(toCamelCase(undefined as any), '');
 });
 
 test('Convert single word', () => {
@@ -154,3 +155,4 @@ test('Handle empty string (pascal)', () => {
 });
 
 console.log('\n✨ All tests passed!\n');
+
