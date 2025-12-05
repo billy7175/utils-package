@@ -3,10 +3,23 @@
   "version": "1.1.0",
   "description": "progressively upgraded package",
   "type": "module",
-  "main": "src/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "node test/index.test.js",
-    "example": "node examples/basic.js"
+    "test": "npm run build && node test/index.test.js",
+    "example": "npm run build && node examples/basic.js",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean"
   },
   "keywords": [
     "string",
@@ -19,6 +32,9 @@
   "license": "MIT",
   "engines": {
     "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   }
 }
-

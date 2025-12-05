@@ -3,7 +3,7 @@
  * v1.1.0 - Test all case conversion functions
  */
 
-import { toCamelCase, toKebabCase, toSnakeCase, toPascalCase } from '../src/index.js';
+import { toCamelCase, toKebabCase, toSnakeCase, toPascalCase } from '../dist/index.js';
 
 // Simple test helpers
 function test(description, fn) {

@@ -6,11 +6,8 @@
 /**
  * Helper function to split a string into word arrays
  * Handles camelCase, PascalCase, kebab-case, snake_case, etc.
- * 
- * @param {string} str - String to split
- * @returns {string[]} Array of words converted to lowercase
  */
-function splitWords(str) {
+function splitWords(str: string): string[] {
   if (!str) return [];
 
   // Add spaces before uppercase letters (handles camelCase, PascalCase)
@@ -27,15 +24,12 @@ function splitWords(str) {
 /**
  * Converts a string to camelCase.
  * 
- * @param {string} str - String to convert
- * @returns {string} The converted camelCase string
- * 
  * @example
  * toCamelCase("hello world");  // "helloWorld"
  * toCamelCase("hello-world");  // "helloWorld"
  * toCamelCase("hello_world");  // "helloWorld"
  */
-function toCamelCase(str) {
+export function toCamelCase(str: string): string {
   const words = splitWords(str);
   if (words.length === 0) return '';
 
@@ -53,15 +47,12 @@ function toCamelCase(str) {
 /**
  * Converts a string to kebab-case.
  * 
- * @param {string} str - String to convert
- * @returns {string} The converted kebab-case string
- * 
  * @example
  * toKebabCase("helloWorld");   // "hello-world"
  * toKebabCase("hello world");  // "hello-world"
  * toKebabCase("HelloWorld");   // "hello-world"
  */
-function toKebabCase(str) {
+export function toKebabCase(str: string): string {
   const words = splitWords(str);
   if (words.length === 0) return '';
 
@@ -71,15 +62,12 @@ function toKebabCase(str) {
 /**
  * Converts a string to snake_case.
  * 
- * @param {string} str - String to convert
- * @returns {string} The converted snake_case string
- * 
  * @example
  * toSnakeCase("helloWorld");   // "hello_world"
  * toSnakeCase("hello world");  // "hello_world"
  * toSnakeCase("HelloWorld");   // "hello_world"
  */
-function toSnakeCase(str) {
+export function toSnakeCase(str: string): string {
   const words = splitWords(str);
   if (words.length === 0) return '';
 
@@ -89,15 +77,12 @@ function toSnakeCase(str) {
 /**
  * Converts a string to PascalCase.
  * 
- * @param {string} str - String to convert
- * @returns {string} The converted PascalCase string
- * 
  * @example
  * toPascalCase("hello world");  // "HelloWorld"
  * toPascalCase("hello-world");  // "HelloWorld"
  * toPascalCase("hello_world");  // "HelloWorld"
  */
-function toPascalCase(str) {
+export function toPascalCase(str: string): string {
   const words = splitWords(str);
   if (words.length === 0) return '';
 
@@ -106,10 +91,3 @@ function toPascalCase(str) {
     .join('');
 }
 
-// Export modules (ESM)
-export {
-  toCamelCase,
-  toKebabCase,
-  toSnakeCase,
-  toPascalCase
-};

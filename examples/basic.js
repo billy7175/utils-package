@@ -3,7 +3,7 @@
  * v1.1.0 - All case conversion examples
  */
 
-import { toCamelCase, toKebabCase, toSnakeCase, toPascalCase } from '../src/index.js';
+import { toCamelCase, toKebabCase, toSnakeCase, toPascalCase } from '../dist/index.js';
 
 console.log('🎯 string-case-utils v1.1.0 Examples\n');
 
