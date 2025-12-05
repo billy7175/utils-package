@@ -3,7 +3,7 @@
  * v1.1.0 - Test all case conversion functions
  */
 
-import { toCamelCase, toKebabCase, toSnakeCase, toPascalCase } from '../dist/index.js';
+import { toCamelCase, toKebabCase, toSnakeCase, toPascalCase, shallowEqual, isEqual } from '../dist/index.js';
 
 // Simple test helpers
 function test(description: string, fn: () => void): void {
@@ -152,6 +152,109 @@ test('Convert multi-word to PascalCase', () => {
 
 test('Handle empty string (pascal)', () => {
   assertEqual(toPascalCase(''), '');
+});
+
+// shallowEqual tests
+console.log('\n📝 shallowEqual tests:');
+
+test('Compare primitive values', () => {
+  assertEqual(shallowEqual(1, 1), true);
+  assertEqual(shallowEqual('hello', 'hello'), true);
+  assertEqual(shallowEqual(true, true), true);
+  assertEqual(shallowEqual(1, 2), false);
+});
+
+test('Compare same object reference', () => {
+  const obj = { a: 1 };
+  assertEqual(shallowEqual(obj, obj), true);
+});
+
+test('Compare objects with same top-level properties', () => {
+  assertEqual(shallowEqual({ a: 1, b: 2 }, { a: 1, b: 2 }), true);
+  assertEqual(shallowEqual({ a: 1, b: 2 }, { a: 1, b: 3 }), false);
+});
+
+test('Compare objects with nested objects (shallow)', () => {
+  const nested1 = { a: 1, b: { c: 2 } };
+  const nested2 = { a: 1, b: { c: 2 } };
+  assertEqual(shallowEqual(nested1, nested2), false); // Different object references
+});
+
+test('Compare arrays', () => {
+  assertEqual(shallowEqual([1, 2, 3], [1, 2, 3]), true);
+  assertEqual(shallowEqual([1, 2, 3], [1, 2, 4]), false);
+});
+
+test('Compare arrays with nested objects (shallow)', () => {
+  const arr1 = [1, { a: 2 }];
+  const arr2 = [1, { a: 2 }];
+  assertEqual(shallowEqual(arr1, arr2), false); // Nested object has different reference
+});
+
+test('Handle null and undefined', () => {
+  assertEqual(shallowEqual(null, null), true);
+  assertEqual(shallowEqual(undefined, undefined), true);
+  assertEqual(shallowEqual(null, undefined), false);
+});
+
+// isEqual tests
+console.log('\n📝 isEqual tests:');
+
+test('Compare primitive values (deep)', () => {
+  assertEqual(isEqual(1, 1), true);
+  assertEqual(isEqual('hello', 'hello'), true);
+  assertEqual(isEqual(1, 2), false);
+});
+
+test('Compare NaN values', () => {
+  assertEqual(isEqual(NaN, NaN), true);
+});
+
+test('Compare objects with nested objects (deep)', () => {
+  const obj1 = { a: 1, b: { c: 2, d: { e: 3 } } };
+  const obj2 = { a: 1, b: { c: 2, d: { e: 3 } } };
+  assertEqual(isEqual(obj1, obj2), true);
+});
+
+test('Compare nested objects with different values', () => {
+  const obj1 = { a: 1, b: { c: 2 } };
+  const obj2 = { a: 1, b: { c: 3 } };
+  assertEqual(isEqual(obj1, obj2), false);
+});
+
+test('Compare arrays with nested arrays (deep)', () => {
+  const arr1 = [1, [2, [3, 4]]];
+  const arr2 = [1, [2, [3, 4]]];
+  assertEqual(isEqual(arr1, arr2), true);
+});
+
+test('Compare Date objects', () => {
+  const date1 = new Date('2023-01-01');
+  const date2 = new Date('2023-01-01');
+  assertEqual(isEqual(date1, date2), true);
+});
+
+test('Compare RegExp objects', () => {
+  const regex1 = /test/gi;
+  const regex2 = /test/gi;
+  assertEqual(isEqual(regex1, regex2), true);
+});
+
+test('Compare objects with arrays', () => {
+  const obj1 = { a: 1, b: [2, 3] };
+  const obj2 = { a: 1, b: [2, 3] };
+  assertEqual(isEqual(obj1, obj2), true);
+});
+
+test('Compare different types', () => {
+  assertEqual(isEqual({}, []), false);
+  assertEqual(isEqual(1, '1'), false);
+});
+
+test('Handle empty objects and arrays', () => {
+  assertEqual(isEqual({}, {}), true);
+  assertEqual(isEqual([], []), true);
+  assertEqual(isEqual({}, []), false);
 });
 
 console.log('\n✨ All tests passed!\n');

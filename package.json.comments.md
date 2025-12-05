@@ -18,6 +18,17 @@
 npm 배포 시 포함할 파일:
 - `dist/` 폴더만 포함 (src, test, examples 제외)
 
+## SideEffects
+
+Tree-shaking 최적화 설정:
+- `"sideEffects": false` - 패키지에 사이드 이펙트가 없음을 명시
+- 번들러(Webpack, Rollup, Vite 등)가 사용하지 않는 코드를 더 공격적으로 제거
+- 함수를 수백 개 추가해도 사용자가 import한 함수만 번들에 포함됨
+- 유틸리티 패키지에 필수 설정
+
+**참고:**
+- `sideEffects` 없이도 Tree-shaking은 작동하지만, `false` 설정 시 더 확실한 최적화 가능
+
 ## Scripts
 
 - `test`: 빌드 후 테스트 실행 (dist/index.js 사용)
